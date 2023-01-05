@@ -53,7 +53,7 @@ public class ProfesionalServiceImpl implements ProfesionalService{
         Profesional existingProfesional = profesionalRepository.findById(id).
                 orElseThrow(ProfesionalNotFoundException::new);
         /*
-         * ToDo Con ModelMapper evito escribir todos los getters y setters pero debo incluir el id tambien en Json
+         *ToDo Con ModelMapper evito escribir todos los getters y setters pero debo incluir el id tambien en Json
          * para que no me cree un nuevo familiar y si realice la modificación sobre el familiar indicado.
          */
         ModelMapper mapper = new ModelMapper();

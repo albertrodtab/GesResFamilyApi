@@ -47,9 +47,9 @@ public class CentroServiceImpl implements CentroService {
         Centro existingCentro = centroRepository.findById(id).
                 orElseThrow(CentroNotFoundException::new);
         /*
-         * Con ModelMapper evito escribir todos los getters y setters pero debo incluir el id tambien en Json
+         *ToDo Con ModelMapper evito escribir todos los getters y setters pero debo incluir el id tambien en Json
          * para que realice la modificación sobre el existente sin crear uno nuevo.
-         * ToDo revisar como evitar esto.
+         * revisar como evitar esto.
          */
         ModelMapper mapper = new ModelMapper();
         existingCentro = mapper.map(newCentro, Centro.class);

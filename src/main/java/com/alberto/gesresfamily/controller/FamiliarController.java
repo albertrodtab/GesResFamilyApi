@@ -86,7 +86,7 @@ public class FamiliarController {
 
 
     @ExceptionHandler(CentroNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleEmployeeNotFoundException(FamiliarNotFoundException fnfe) {
+    public ResponseEntity<ErrorResponse> handleFamiliarNotFoundException(FamiliarNotFoundException fnfe) {
         logger.info("404: Familiar not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(fnfe.getMessage()));
     }
