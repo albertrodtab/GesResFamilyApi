@@ -99,8 +99,8 @@ public class CentroController {
     }
 
     @ExceptionHandler(CentroNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleEmployeeNotFoundException(CentroNotFoundException cnfe) {
-        logger.info("404: Employee not found");
+    public ResponseEntity<ErrorResponse> handleCentroNotFoundException(CentroNotFoundException cnfe) {
+        logger.info("404: Centro not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(cnfe.getMessage()));
     }
 
