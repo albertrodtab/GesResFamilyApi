@@ -88,7 +88,7 @@ public class ProfesionalController {
 
 
     @ExceptionHandler(CentroNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleEmployeeNotFoundException(ProfesionalNotFoundException pnfe) {
+    public ResponseEntity<ErrorResponse> handleProfesionalNotFoundException(ProfesionalNotFoundException pnfe) {
         logger.info("404: Profesional not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(pnfe.getMessage()));
     }
