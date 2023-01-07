@@ -1,7 +1,10 @@
 package com.alberto.gesresfamily.controller;
 
+import com.alberto.gesresfamily.domain.Centro;
 import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.ResidenteDto;
 import com.alberto.gesresfamily.exception.*;
+import com.alberto.gesresfamily.service.CentroService;
 import com.alberto.gesresfamily.service.ResidenteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +27,16 @@ public class ResidenteController {
     @Autowired
     private ResidenteService residenteService;
 
+    @Autowired
+    private CentroService centroService;
+
     //Añadir Residente
     @PostMapping("/residentes")
-    public ResponseEntity<Residente> addResidente (@RequestBody Residente residente) {
-        logger.info("Inicio addResidente");
-        Residente newResidente = residenteService.addResidente(residente);
-        logger.info("Fin addResidente");
-        return ResponseEntity.status(HttpStatus.CREATED).body(newResidente);
+    public Residente addResidenteCentro (@RequestBody ResidenteDto residenteDto) throws CentroNotFoundException {
+        logger.info("Inicio addResidenteCentro");
+        Residente newResidente = residenteService.addResidenteCentro(residenteDto);
+        logger.info("Fin addResidenteCentro");
+        return newResidente;
     }
     //Consultar residente por id
     @GetMapping("/residentes/{id}")
@@ -69,6 +75,8 @@ public class ResidenteController {
         return ResponseEntity.status(HttpStatus.OK).body(newResidente);
     }
 
+
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {
@@ -88,10 +96,16 @@ public class ResidenteController {
         return ResponseEntity.badRequest().body(ErrorResponse.badRequest(bre.getMessage()));
     }
 
-    @ExceptionHandler(CentroNotFoundException.class)
+    @ExceptionHandler(ResidenteNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResidenteNotFoundException(ResidenteNotFoundException rnfe) {
         logger.info("404: Residente not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(rnfe.getMessage()));
+    }
+
+    @ExceptionHandler(CentroNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleCentroNotFoundException(CentroNotFoundException cnfe) {
+        logger.info("404: Centro not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(cnfe.getMessage()));
     }
 
     @ExceptionHandler(InternalServerErrorException.class)

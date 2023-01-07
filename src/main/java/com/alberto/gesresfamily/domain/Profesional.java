@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,5 +29,10 @@ public class Profesional {
     private LocalDate fechaNacimiento;
     @Column
     private String categoria;
+
+    //como ya está relacionado en el otro lado aquí solo indico por que objeto tiene mapearse
+    // 1 profesional varios planes, pero 1 plan solo 1 profesional
+    @OneToMany(mappedBy = "profesional")
+    private List<Plan> planes;
 
 }

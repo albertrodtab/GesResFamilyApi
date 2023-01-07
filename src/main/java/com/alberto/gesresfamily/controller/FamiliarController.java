@@ -1,8 +1,11 @@
 package com.alberto.gesresfamily.controller;
 
 import com.alberto.gesresfamily.domain.Familiar;
+import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.RelacionDTO;
 import com.alberto.gesresfamily.exception.*;
 import com.alberto.gesresfamily.service.FamiliarService;
+import com.alberto.gesresfamily.service.ResidenteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,35 @@ public class FamiliarController {
     @Autowired
     private FamiliarService familiarService;
 
+    @Autowired
+    private ResidenteService residenteService;
+
     @PostMapping("/familiares")
     public ResponseEntity<Familiar> addFamiliar(@RequestBody Familiar familiar) {
         logger.info("Inicio addFamiliar");
         Familiar newFamiliar = familiarService.addFamiliar(familiar);
         logger.info("Fin addFamiliar");
         return ResponseEntity.status(HttpStatus.CREATED).body(newFamiliar);
+    }
+
+    /*
+    * Relacionar un familiar con un residente
+     */
+    @PostMapping("/familiares/{familiarId}/residentes/{residenteId}")
+    public ResponseEntity<Response> relacion(@RequestBody RelacionDTO relacionDTO)
+            throws FamiliarNotFoundException, ResidenteNotFoundException {
+        logger.info("Inicio relacion");
+        Residente residente = residenteService.findResidente(relacionDTO.getResidenteId());
+        logger.info("Residente encontrado " + residente.getId());
+        Familiar familiar = familiarService.findFamiliar(relacionDTO.getFamiliarId());
+        logger.info("Familiar encontrado " + familiar.getId());
+        familiarService.addRelacion(residente, familiar);
+
+
+        Response response = new Response("1", "Residente añadido al familiar " +
+                relacionDTO.getFamiliarId());
+        logger.info("Fin relacion");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/familiares/{id}")
@@ -65,7 +91,7 @@ public class FamiliarController {
         return ResponseEntity.status(HttpStatus.OK).body(newFamiliar);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+/*    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {
         logger.info("400: Argument not valid");
@@ -76,7 +102,7 @@ public class FamiliarController {
             errors.put(fieldName, message);
         });
         return ResponseEntity.badRequest().body(ErrorResponse.validationError(errors));
-    }
+    }*/
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException bre) {
@@ -85,10 +111,16 @@ public class FamiliarController {
     }
 
 
-    @ExceptionHandler(CentroNotFoundException.class)
+    @ExceptionHandler(FamiliarNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleFamiliarNotFoundException(FamiliarNotFoundException fnfe) {
         logger.info("404: Familiar not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(fnfe.getMessage()));
+    }
+
+    @ExceptionHandler(ResidenteNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResidenteNotFoundException(ResidenteNotFoundException rnfe) {
+        logger.info("404: Residente not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(rnfe.getMessage()));
     }
 
     @ExceptionHandler(InternalServerErrorException.class)

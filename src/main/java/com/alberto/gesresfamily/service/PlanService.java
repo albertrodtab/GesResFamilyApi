@@ -1,13 +1,16 @@
 package com.alberto.gesresfamily.service;
 
 import com.alberto.gesresfamily.domain.Plan;
+import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.PlanDto;
 import com.alberto.gesresfamily.exception.PlanNotFoundException;
+import com.alberto.gesresfamily.exception.ProfesionalNotFoundException;
 
 import java.util.List;
 
 public interface PlanService {
 
-    Plan addPlan(Plan plan);
+    Plan addPlan(PlanDto planDto) throws ProfesionalNotFoundException;
 
     Plan findPlan(long id) throws PlanNotFoundException;
 
@@ -20,4 +23,6 @@ public interface PlanService {
     Plan modifyPlan(long id, Plan plan) throws PlanNotFoundException;
 
 
+    void addParticipa(Residente residente, Plan plan);
 }
+

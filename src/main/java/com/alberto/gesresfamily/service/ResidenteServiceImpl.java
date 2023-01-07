@@ -1,7 +1,11 @@
 package com.alberto.gesresfamily.service;
 
+import com.alberto.gesresfamily.domain.Centro;
 import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.ResidenteDto;
+import com.alberto.gesresfamily.exception.CentroNotFoundException;
 import com.alberto.gesresfamily.exception.ResidenteNotFoundException;
+import com.alberto.gesresfamily.repository.CentroRepository;
 import com.alberto.gesresfamily.repository.ResidenteRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -19,8 +23,17 @@ public class ResidenteServiceImpl implements ResidenteService{
     @Autowired
     private ResidenteRepository residenteRepository;
 
+    @Autowired
+    private CentroRepository centroRepository;
+
     @Override
-    public Residente addResidente(Residente residente) {
+    public Residente addResidenteCentro (ResidenteDto residenteDto) throws CentroNotFoundException {
+        Centro centro = centroRepository.findById(residenteDto.getCentro())
+                .orElseThrow(CentroNotFoundException::new);
+
+        ModelMapper mapper = new ModelMapper();
+        Residente residente = mapper.map(residenteDto, Residente.class);
+        residente.setCentro(centro);
         return residenteRepository.save(residente);
     }
 
@@ -65,5 +78,10 @@ public class ResidenteServiceImpl implements ResidenteService{
 //        residente.setSexo(newResidente.getSexo());
 //        residente.setSaldo(newResidente.getSaldo());
         return residenteRepository.save(existingResidente);
+    }
+
+    @Override
+    public Residente finbById(long idResidente) {
+        return residenteRepository.findAllById(idResidente);
     }
 }

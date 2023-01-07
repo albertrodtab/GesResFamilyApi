@@ -1,6 +1,7 @@
 package com.alberto.gesresfamily.service;
 
 import com.alberto.gesresfamily.domain.Familiar;
+import com.alberto.gesresfamily.domain.Residente;
 import com.alberto.gesresfamily.exception.FamiliarNotFoundException;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface FamiliarService {
 
     Familiar modifyFamiliar(long id, Familiar familiar) throws FamiliarNotFoundException;
 
+    void addRelacion(Residente residente, Familiar familiar);
 }
+
