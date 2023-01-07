@@ -2,9 +2,11 @@ package com.alberto.gesresfamily.service;
 
 import com.alberto.gesresfamily.domain.Centro;
 import com.alberto.gesresfamily.domain.Familiar;
+import com.alberto.gesresfamily.domain.Residente;
 import com.alberto.gesresfamily.exception.CentroNotFoundException;
 import com.alberto.gesresfamily.exception.FamiliarNotFoundException;
 import com.alberto.gesresfamily.repository.FamiliarRepository;
+import com.alberto.gesresfamily.repository.ResidenteRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,15 +23,28 @@ public class FamiliarServiceImpl implements FamiliarService{
     @Autowired
     private FamiliarRepository familiarRepository;
 
+    @Autowired
+    private ResidenteRepository residenteRepository;
+
     @Override
     public Familiar addFamiliar(Familiar familiar) {
         return familiarRepository.save(familiar);
     }
 
     @Override
+    public void addRelacion(Residente residente, Familiar familiar) {
+        logger.info("Inicio addRelación");
+        residente.getFamiliares().add(familiar);
+        familiar.getResidentes().add(residente);
+        residenteRepository.save(residente);
+        familiarRepository.save(familiar);
+
+        logger.info("Fin addRelacion");
+    }
+    @Override
     public Familiar findFamiliar(long id) throws FamiliarNotFoundException {
-        return familiarRepository.findById(id).
-                orElseThrow(FamiliarNotFoundException::new);
+        return familiarRepository.findById(id)
+                .orElseThrow(FamiliarNotFoundException::new);
     }
 
     @Override

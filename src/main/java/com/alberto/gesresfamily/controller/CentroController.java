@@ -79,6 +79,8 @@ public class CentroController {
         return ResponseEntity.status(HttpStatus.OK).body(newCentro);
     }
 
+
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {

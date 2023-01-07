@@ -1,6 +1,9 @@
 package com.alberto.gesresfamily.controller;
 
 import com.alberto.gesresfamily.domain.Plan;
+import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.ParticipaDTO;
+import com.alberto.gesresfamily.domain.dto.PlanDto;
 import com.alberto.gesresfamily.exception.*;
 import com.alberto.gesresfamily.service.PlanService;
 import com.alberto.gesresfamily.service.ProfesionalService;
@@ -31,11 +34,28 @@ public class PlanController {
     private ProfesionalService profesionalService;
 
     @PostMapping("/planes")
-    public ResponseEntity<Plan> addPlan (@RequestBody Plan plan){
+    public ResponseEntity<Plan> addPlan (@RequestBody PlanDto planDto) throws ProfesionalNotFoundException {
         logger.info("Inicio addPlan");
-        Plan newPlan = planService.addPlan(plan);
+        Plan newPlan = planService.addPlan(planDto);
         logger.info("Fin addPlan");
         return ResponseEntity.status(HttpStatus.CREATED).body(newPlan);
+    }
+
+    @PostMapping("/planes/{planId}/residentes/{residenteId}")
+    public ResponseEntity<Response> participa (@RequestBody ParticipaDTO participaDTO)
+            throws PlanNotFoundException, ResidenteNotFoundException {
+        logger.info("Inicio participa");
+        Residente residente = residenteService.findResidente(participaDTO.getResidenteId());
+        logger.info("Residente encontrado " + residente.getId());
+        Plan plan = planService.findPlan(participaDTO.getPlanId());
+        logger.info("Plan encontrado " + plan.getId());
+        planService.addParticipa(residente, plan);
+
+
+        Response response = new Response("1", "Residente añadido al Plan " +
+                participaDTO.getPlanId());
+        logger.info("Fin participa");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/planes/{id}")
@@ -91,10 +111,16 @@ public class PlanController {
     }
 
 
-    @ExceptionHandler(CentroNotFoundException.class)
+    @ExceptionHandler(PlanNotFoundException.class)
     public ResponseEntity<ErrorResponse> handlePlanNotFoundException(ProfesionalNotFoundException plnfe) {
         logger.info("404: Plan not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(plnfe.getMessage()));
+    }
+
+    @ExceptionHandler(ProfesionalNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProfesionalNotFoundException(ProfesionalNotFoundException pnfe) {
+        logger.info("404: Profesional not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(pnfe.getMessage()));
     }
 
     @ExceptionHandler(InternalServerErrorException.class)

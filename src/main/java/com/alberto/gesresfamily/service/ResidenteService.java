@@ -1,13 +1,15 @@
 package com.alberto.gesresfamily.service;
 
 import com.alberto.gesresfamily.domain.Residente;
+import com.alberto.gesresfamily.domain.dto.ResidenteDto;
+import com.alberto.gesresfamily.exception.CentroNotFoundException;
 import com.alberto.gesresfamily.exception.ResidenteNotFoundException;
 
 import java.util.List;
 
 public interface ResidenteService {
 
-    Residente addResidente(Residente residente);
+    Residente addResidenteCentro(ResidenteDto residenteDto) throws CentroNotFoundException;
 
     Residente findResidente(long id) throws ResidenteNotFoundException;
 
@@ -18,5 +20,7 @@ public interface ResidenteService {
     Residente removeResidente(long id) throws ResidenteNotFoundException;
 
     Residente modifyResidente(long id, Residente residente) throws ResidenteNotFoundException;
+
+    Residente finbById(long idResidente);
 
 }
