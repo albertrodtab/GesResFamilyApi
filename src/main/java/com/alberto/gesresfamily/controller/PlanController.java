@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class PlanController {
     private ProfesionalService profesionalService;
 
     @PostMapping("/planes")
-    public ResponseEntity<Plan> addPlan (@RequestBody PlanDto planDto) throws ProfesionalNotFoundException {
+    public ResponseEntity<Plan> addPlan (@Valid @RequestBody PlanDto planDto) throws ProfesionalNotFoundException {
         logger.info("Inicio addPlan");
         Plan newPlan = planService.addPlan(planDto);
         logger.info("Fin addPlan");
@@ -65,13 +66,20 @@ public class PlanController {
     }
 
     @GetMapping("/planes")
-    public ResponseEntity<List<Plan>> getPlanById (@RequestParam(name = "plan", defaultValue = "0") long id){
+    public ResponseEntity<List<Plan>> getPlanes (
+            @RequestParam(name = "id", defaultValue = "0") long id,
+            @RequestParam(name = "nombre", required = false) String nombrePlan,
+            @RequestParam(name = "importante", required = false) boolean importante,
+            @RequestParam(name = "all", defaultValue = "true") boolean all){
+        logger.info("Inicio getPlanes");
         List<Plan> planes;
 
-        if(id == 0){
+        if(all){
+            logger.info("Muestra todos los planes");
             planes = planService.findAllPlanes();
         } else {
-            planes = planService.findAllPlanesById(id);
+            logger.info("Muestra los planes que cumplen alguno de los parámetros.");
+            planes = planService.findAllPlanes(id, nombrePlan, importante);
         }
         return ResponseEntity.ok(planes);
     }

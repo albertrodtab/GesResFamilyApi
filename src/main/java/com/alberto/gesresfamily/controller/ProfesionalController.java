@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class ProfesionalController {
 
 
     @PostMapping("/profesionales")
-    public ResponseEntity<Profesional> addProfesional (@RequestBody Profesional profesional){
+    public ResponseEntity<Profesional> addProfesional (@Valid @RequestBody Profesional profesional){
         logger.info("Inicio addFamiliar");
         Profesional newProfesional = profesionalService.addProfesional(profesional);
         logger.info("Fin addFamiliar");
@@ -40,14 +41,22 @@ public class ProfesionalController {
     }
 
     @GetMapping("/profesionales")
-    public ResponseEntity<List<Profesional>> getProfesionalById (@RequestParam(name = "profesional", defaultValue = "0") long id){
+    public ResponseEntity<List<Profesional>> getProfesionales (
+            @RequestParam(name = "id", defaultValue = "0") long id,
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "dni", required = false) String dni,
+            @RequestParam(name = "all", defaultValue = "true") boolean all){
+        logger.info("Inicio getProfesionales");
         List<Profesional> profesionales;
 
-        if(id == 0){
+        if(all){
+            logger.info("Muestra todos los profesionales");
             profesionales = profesionalService.findAllProfesionales();
         } else {
-            profesionales = profesionalService.findAllProfesionales(id);
+            logger.info("Muestra los profesionales que cumplen alguno de los criterios");
+            profesionales = profesionalService.findAllProfesionales(id, nombre, dni);
         }
+        logger.info("Fin getProfesinales");
         return ResponseEntity.ok(profesionales);
     }
 

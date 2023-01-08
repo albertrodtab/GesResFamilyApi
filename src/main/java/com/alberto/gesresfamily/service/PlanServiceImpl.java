@@ -60,6 +60,11 @@ public class PlanServiceImpl implements PlanService{
     }
 
     @Override
+    public List<Plan> findAllPlanes(long id, String nombrePlan, boolean importante) {
+        return planRepository.findByIdOrNombrePlanOrImportante(id, nombrePlan, importante);
+    }
+
+    @Override
     public Plan findPlan(long id) throws PlanNotFoundException {
         return planRepository.findById(id).orElseThrow(PlanNotFoundException::new);
     }

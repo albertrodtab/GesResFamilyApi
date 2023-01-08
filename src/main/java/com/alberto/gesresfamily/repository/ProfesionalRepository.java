@@ -13,4 +13,5 @@ public interface ProfesionalRepository extends CrudRepository<Profesional, Long>
     List<Profesional> findAll();
     List<Profesional> findAllProfesionalesById(long id);
 
+    List<Profesional> findAllProfesionalesByIdOrNombreOrDni(long id, String nombre, String dni);
 }

@@ -15,6 +15,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +32,7 @@ public class FamiliarController {
     private ResidenteService residenteService;
 
     @PostMapping("/familiares")
-    public ResponseEntity<Familiar> addFamiliar(@RequestBody Familiar familiar) {
+    public ResponseEntity<Familiar> addFamiliar(@Valid @RequestBody Familiar familiar) {
         logger.info("Inicio addFamiliar");
         Familiar newFamiliar = familiarService.addFamiliar(familiar);
         logger.info("Fin addFamiliar");
@@ -64,16 +66,26 @@ public class FamiliarController {
     }
 
     @GetMapping("/familiares")
-    public ResponseEntity<List<Familiar>> getFamiliaresById (@RequestParam(name = "familiar", defaultValue = "0") long id){
+    public ResponseEntity<List<Familiar>> getFamiliares (
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "dni", required = false) String dni,
+            @RequestParam(name = "telefono", required = false) String telefono,
+            @RequestParam(name = "all", defaultValue = "true") boolean all){
+        logger.info("Inicio getFamiliares");
         List<Familiar> familiares;
 
-        if(id == 0){
+        if(all){
+            logger.info("Muestra todos los familiares");
             familiares = familiarService.findAllFamiliares();
         } else {
-            familiares = familiarService.findAllFamiliares(id);
+            logger.info("Muestra centros que cumplen los parámetros de busqueda");
+            familiares = familiarService.findAllFamiliares(nombre, dni, telefono);
         }
+        logger.info("Fin getFamiliares");
         return ResponseEntity.ok(familiares);
     }
+
+
 
     @DeleteMapping("/familiares/{id}")
     public ResponseEntity<Void> removeFamiliar (@PathVariable long id) throws FamiliarNotFoundException{
@@ -91,9 +103,9 @@ public class FamiliarController {
         return ResponseEntity.status(HttpStatus.OK).body(newFamiliar);
     }
 
-/*    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException manve) {
         logger.info("400: Argument not valid");
         Map<String, String> errors = new HashMap<>();
         manve.getBindingResult().getAllErrors().forEach(error -> {
@@ -101,8 +113,10 @@ public class FamiliarController {
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);
         });
+        logger.error(manve.getMessage(), manve);
+        logger.error(Arrays.toString(manve.getStackTrace()));
         return ResponseEntity.badRequest().body(ErrorResponse.validationError(errors));
-    }*/
+    }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException bre) {

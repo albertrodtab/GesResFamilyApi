@@ -15,4 +15,5 @@ public interface PlanRepository extends CrudRepository<Plan, Long> {
 
     List<Plan> findAllPlanesById(long id);
 
+    List<Plan> findByIdOrNombrePlanOrImportante(long id, String nombrePlan, boolean importante);
 }

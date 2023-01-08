@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class ResidenteController {
 
     //Añadir Residente
     @PostMapping("/residentes")
-    public Residente addResidenteCentro (@RequestBody ResidenteDto residenteDto) throws CentroNotFoundException {
+    public Residente addResidenteCentro (@Valid @RequestBody ResidenteDto residenteDto) throws CentroNotFoundException {
         logger.info("Inicio addResidenteCentro");
         Residente newResidente = residenteService.addResidenteCentro(residenteDto);
         logger.info("Fin addResidenteCentro");
@@ -46,14 +47,20 @@ public class ResidenteController {
     }
     //Consultar residentes
     @GetMapping("/residentes")
-    public ResponseEntity<List<Residente>> getResidenteById
-    (@RequestParam(name = "residente", defaultValue = "0") long id){
+    public ResponseEntity<List<Residente>> getResidentes(
+            @RequestParam(name = "id", defaultValue = "0") long id,
+            @RequestParam(name = "nombre", required = false) String nombre,
+            @RequestParam(name = "dni", required = false) String dni,
+            @RequestParam(name = "all", defaultValue = "true") boolean all){
+        logger.info("Inicio getResidentes");
         List<Residente> residentes;
 
-        if(id == 0){
+        if(all){
+            logger.info("Muestra todos los residentes");
             residentes = residenteService.findAllResidentes();
         } else {
-            residentes = residenteService.findAllResidentes(id);
+            logger.info("Muestra los residentes que cumplen los parámetros de búsqueda");
+            residentes = residenteService.findAllResidentes(id, nombre, dni);
         }
         return ResponseEntity.ok(residentes);
     }

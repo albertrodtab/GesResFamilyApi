@@ -66,5 +66,10 @@ public class ProfesionalServiceImpl implements ProfesionalService{
         return profesionalRepository.save(existingProfesional);
     }
 
+    @Override
+    public List<Profesional> findAllProfesionales(long id, String nombre, String dni) {
+        return profesionalRepository.findAllProfesionalesByIdOrNombreOrDni(id, nombre, dni);
+    }
+
 
 }

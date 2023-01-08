@@ -3,14 +3,14 @@
 Proyecto de la asignatura de acceso a datos de 2º de DAM de San Valero.
 
 El proyecto pretende construir una API para poder ser consumida por una aplicación android de comunicación con familias
-para un centro residencial del mayores.
+para un centro residencial de atención a personas mayores.
 
 ### Requisitos (1 pto cada uno, obligatorios)
 
-El modelo de datos estará compuesto de, al menos, 5 clases y tendrán que existir relaciones entre ellas. 
-* Cada clase tendrá, al menos, 6 atributos (String, int, float, boolean y algún tipo para almacenar fechas). Cada clase
+* El modelo de datos estará compuesto de, al menos, 5 clases y tendrán que existir relaciones entre ellas. 
+Cada clase tendrá, al menos, 6 atributos (String, int, float, boolean y algún tipo para almacenar fechas). Cada clase
 tendrá, al menos, 2 atributos obligatorios y algún otro con algún tipo de restricción de formato/validación.
-* Se tendrá que poder realizar, el menos, las operaciones CRUD sobre cada una de las clases. Se controlarán, al menos, 
+* Se tendrá que poder realizar, al menos, las operaciones CRUD sobre cada una de las clases. Se controlarán, al menos, 
 los errores 400, 404 y 500.
 * Añade opciones de filtrado para al menos una operación en cada clase en donde se puedan indicar hasta 3 campos 
 diferentes (solo aplicable para operaciones GET).

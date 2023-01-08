@@ -5,8 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "nombre_plan")
+    @NotNull(message="El nombre del centro es obligatorio")
+    @NotBlank(message = "El nombre del centro no puede estar vacío")
     private String nombrePlan;
     @Column
     private String terapia;
@@ -32,6 +37,7 @@ public class Plan {
     @Column
     private Boolean importante;
     @Column
+    @Length(min= 6)
     private String descripcion;
 
 
