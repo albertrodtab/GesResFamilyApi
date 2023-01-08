@@ -12,4 +12,7 @@ public interface FamiliarRepository extends CrudRepository<Familiar, Long> {
     Familiar findAllById(long id);
     List<Familiar> findAll();
     List<Familiar> findAllFamiliaresById(long id);
+
+    List<Familiar> findByNombreOrDniOrTelefono(String nombre, String dni, String telefono);
+
 }

@@ -41,6 +41,12 @@ public class FamiliarServiceImpl implements FamiliarService{
 
         logger.info("Fin addRelacion");
     }
+
+    @Override
+    public List<Familiar> findAllFamiliares(String nombre, String dni, String telefono) {
+        return familiarRepository.findByNombreOrDniOrTelefono(nombre, dni, telefono);
+    }
+
     @Override
     public Familiar findFamiliar(long id) throws FamiliarNotFoundException {
         return familiarRepository.findById(id)

@@ -21,5 +21,8 @@ public interface FamiliarService {
     Familiar modifyFamiliar(long id, Familiar familiar) throws FamiliarNotFoundException;
 
     void addRelacion(Residente residente, Familiar familiar);
+
+    List<Familiar> findAllFamiliares(String nombre, String dni, String telefono);
+
 }
 

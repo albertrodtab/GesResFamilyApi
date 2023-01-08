@@ -14,4 +14,6 @@ public interface ResidenteRepository extends CrudRepository<Residente, Long> {
     List<Residente> findAll();
 
     List<Residente> findAllResidentesById(long id);
+
+    List<Residente> findAllResidentesByIdOrNombreOrDni(long id, String nombre, String dni);
 }

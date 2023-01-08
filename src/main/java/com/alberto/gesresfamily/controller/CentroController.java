@@ -12,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class CentroController {
 
 
     @PostMapping("/centros")
-    public ResponseEntity<Centro> addCentro (@RequestBody Centro centro) {
+    public ResponseEntity<Centro> addCentro (@Valid @RequestBody Centro centro) {
         logger.info("Inicio addCentro");
         Centro newCentro = centroService.addCentro(centro);
         logger.info("Fin addCentro");
@@ -83,7 +85,7 @@ public class CentroController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException manve) {
         logger.info("400: Argument not valid");
         Map<String, String> errors = new HashMap<>();
         manve.getBindingResult().getAllErrors().forEach(error -> {
@@ -91,24 +93,29 @@ public class CentroController {
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);
         });
+        logger.error(manve.getMessage(), manve);
+        logger.error(Arrays.toString(manve.getStackTrace()));
         return ResponseEntity.badRequest().body(ErrorResponse.validationError(errors));
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException bre) {
-        logger.info("400: Bad request");
+        logger.error(bre.getMessage(), bre);
+        logger.error(Arrays.toString(bre.getStackTrace()));
         return ResponseEntity.badRequest().body(ErrorResponse.badRequest(bre.getMessage()));
     }
 
     @ExceptionHandler(CentroNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCentroNotFoundException(CentroNotFoundException cnfe) {
-        logger.info("404: Centro not found");
+        logger.error(cnfe.getMessage(), cnfe);
+        logger.error(Arrays.toString(cnfe.getStackTrace()));
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(cnfe.getMessage()));
     }
 
     @ExceptionHandler(InternalServerErrorException.class)
     public ResponseEntity<ErrorResponse> handleInternalServerErrorException(InternalServerErrorException isee) {
-        logger.info("500: Internal server error");
+        logger.error(isee.getMessage(), isee);
+        logger.error(Arrays.toString(isee.getStackTrace()));
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorResponse.internalServerError(isee.getMessage()));
     }
 
