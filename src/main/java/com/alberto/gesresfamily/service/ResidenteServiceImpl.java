@@ -89,4 +89,13 @@ public class ResidenteServiceImpl implements ResidenteService{
     public List<Residente> findAllResidentes(long id, String nombre, String dni) {
         return residenteRepository.findAllResidentesByIdOrNombreOrDni(id,nombre, dni);
     }
+
+    @Override
+    public Residente patchProfesional(long id, float saldo) throws ResidenteNotFoundException {
+        Residente residente = residenteRepository.findById(id).
+                orElseThrow(ResidenteNotFoundException::new);
+        residente.setSaldo(saldo);
+        return residenteRepository.save(residente);
+    }
+
 }

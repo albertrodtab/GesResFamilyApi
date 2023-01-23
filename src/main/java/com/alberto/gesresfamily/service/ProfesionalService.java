@@ -21,4 +21,6 @@ public interface ProfesionalService {
     Profesional modifyProfesional(long id, Profesional profesional) throws ProfesionalNotFoundException;
 
     List<Profesional> findAllProfesionales(long id, String nombre, String dni);
+
+    Profesional patchProfesional(long id, String categoria) throws ProfesionalNotFoundException;
 }

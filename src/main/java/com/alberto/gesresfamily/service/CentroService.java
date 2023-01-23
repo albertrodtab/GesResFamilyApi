@@ -19,4 +19,6 @@ public interface CentroService {
     Centro modifyCentro(long id, Centro centro) throws CentroNotFoundException;
 
     Centro findById(long id) throws CentroNotFoundException;
+
+    Centro patchCentro(long id, String telefono) throws CentroNotFoundException;
 }

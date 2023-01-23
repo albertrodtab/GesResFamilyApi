@@ -24,5 +24,6 @@ public interface FamiliarService {
 
     List<Familiar> findAllFamiliares(String nombre, String dni, String telefono);
 
+    Familiar patchfamiliar(long id, String telefono) throws FamiliarNotFoundException;
 }
 

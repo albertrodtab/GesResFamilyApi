@@ -104,4 +104,13 @@ public class PlanServiceImpl implements PlanService{
 //        ExistingPlan.setImportante(newPlan.getImportante());
         return planRepository.save(ExistingPlan);
     }
+
+    @Override
+    public Plan patchPlan(long id, boolean importancia) throws PlanNotFoundException {
+        Plan plan = planRepository.findById(id)
+                .orElseThrow(PlanNotFoundException::new);
+        plan.setImportante(importancia);
+        return planRepository.save(plan);
+    }
+
 }

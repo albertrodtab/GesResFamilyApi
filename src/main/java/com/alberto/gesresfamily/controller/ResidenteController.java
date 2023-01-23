@@ -82,6 +82,15 @@ public class ResidenteController {
         return ResponseEntity.status(HttpStatus.OK).body(newResidente);
     }
 
+    // Actualizar el saldo de un residente
+    @PatchMapping("/residente/{id}")
+    public Residente patchResidente (@PathVariable long id, @RequestBody float saldo) throws ResidenteNotFoundException {
+        logger.info("Start PatchResidente " + id);
+        Residente residente = residenteService.patchProfesional(id, saldo);
+        logger.info("End patchResidente " + id);
+        return residente;
+    }
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

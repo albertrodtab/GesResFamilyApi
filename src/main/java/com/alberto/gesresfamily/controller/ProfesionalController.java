@@ -76,6 +76,15 @@ public class ProfesionalController {
         return ResponseEntity.status(HttpStatus.OK).body(newProfesional);
     }
 
+    // Cambiar la categoria de un profesional
+    @PatchMapping("/profesional/{id}")
+    public Profesional patchProfesional (@PathVariable long id, @RequestBody String categoria) throws ProfesionalNotFoundException {
+        logger.info("Inicio PatchProfesional " + id);
+        Profesional profesional = profesionalService.patchProfesional(id, categoria);
+        logger.info("Fin patchprofesional " + id);
+        return profesional;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {

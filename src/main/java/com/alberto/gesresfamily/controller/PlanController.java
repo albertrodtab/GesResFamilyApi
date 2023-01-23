@@ -99,6 +99,15 @@ public class PlanController {
         return ResponseEntity.status(HttpStatus.OK).body(newPlan);
     }
 
+    // Cambiar la importancia de un plan
+    @PatchMapping("/plan/{id}")
+    public Plan patchPlan (@PathVariable long id, @RequestBody boolean importante) throws PlanNotFoundException {
+        logger.info("Inicio PatchPlan " + id);
+        Plan plan = planService.patchPlan(id, importante);
+        logger.info("Fin patchPlan " + id);
+        return plan;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {

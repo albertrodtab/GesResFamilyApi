@@ -60,4 +60,12 @@ public class CentroServiceImpl implements CentroService {
     public List<Centro> findAllCentros(String nombre, String numRegistro, String email) {
         return centroRepository.findByNombreOrNumRegistroOrEmail(nombre, numRegistro, email);
     }
+
+    @Override
+    public Centro patchCentro(long id, String telefono) throws CentroNotFoundException {
+        Centro centro = centroRepository.findById(id).
+                orElseThrow(CentroNotFoundException::new);
+        centro.setTelefono(telefono);
+        return centroRepository.save(centro);
+    }
 }

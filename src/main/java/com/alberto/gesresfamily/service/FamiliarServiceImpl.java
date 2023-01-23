@@ -89,4 +89,12 @@ public class FamiliarServiceImpl implements FamiliarService{
         return familiarRepository.save(existingFamiliar);
     }
 
+    @Override
+    public Familiar patchfamiliar(long id, String telefono) throws FamiliarNotFoundException {
+        Familiar familiar = familiarRepository.findById(id)
+                .orElseThrow(FamiliarNotFoundException::new);
+        familiar.setTelefono(telefono);
+        return familiarRepository.save(familiar);
+    }
+
 }

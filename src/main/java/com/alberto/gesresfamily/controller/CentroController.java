@@ -81,6 +81,15 @@ public class CentroController {
         return ResponseEntity.status(HttpStatus.OK).body(newCentro);
     }
 
+    // Cambiar el telefono de un centro
+    @PatchMapping("/centro/{id}")
+    public Centro patchCentro (@PathVariable long id, @RequestBody String telefono) throws CentroNotFoundException {
+        logger.info("Start Patchcentro " + id);
+        Centro centro = centroService.patchCentro(id, telefono);
+        logger.info("End patchCentro " + id);
+        return centro;
+    }
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

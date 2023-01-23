@@ -163,6 +163,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ModificarTelefonoCentro",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "900623180",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/centro/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"centro",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -325,6 +354,35 @@
 							"port": "8080",
 							"path": [
 								"familiares",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarTelefonoFamiliar",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "923568978",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/familiar/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"familiar",
 								"1"
 							]
 						}
@@ -546,6 +604,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ModificarImportanciaPlan",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "true",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/plan/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plan",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -709,6 +796,35 @@
 							"path": [
 								"profesionales",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarCategoriaProfesional",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Fisioterapeuta",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesional/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesional",
+								"1"
 							]
 						}
 					},
@@ -906,6 +1022,35 @@
 							"path": [
 								"residentes",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarSaldoResidente",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "100",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/residente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"residente",
+								"1"
 							]
 						}
 					},

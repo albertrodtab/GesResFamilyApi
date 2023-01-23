@@ -103,6 +103,15 @@ public class FamiliarController {
         return ResponseEntity.status(HttpStatus.OK).body(newFamiliar);
     }
 
+    // Cambiar el telefono de un familiar
+    @PatchMapping("/familiar/{id}")
+    public Familiar patchFamiliar (@PathVariable long id, @RequestBody String telefono) throws FamiliarNotFoundException {
+        logger.info("Inicio PatchFamiliar " + id);
+        Familiar familiar = familiarService.patchfamiliar(id, telefono);
+        logger.info("Fin patchFamiliar " + id);
+        return familiar;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException manve) {
