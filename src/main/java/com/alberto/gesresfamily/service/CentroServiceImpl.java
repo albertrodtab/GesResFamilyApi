@@ -68,4 +68,11 @@ public class CentroServiceImpl implements CentroService {
         centro.setTelefono(telefono);
         return centroRepository.save(centro);
     }
+
+    @Override
+    public int numResidentes(long id) throws CentroNotFoundException {
+        Centro centro = centroRepository.findById(id)
+                .orElseThrow(CentroNotFoundException::new);
+        return centroRepository.numResidentes(id);
+    }
 }

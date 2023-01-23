@@ -28,5 +28,7 @@ public interface PlanService {
     List<Plan> findAllPlanes(long id, String nombrePlan, boolean importante);
 
     Plan patchPlan(long id, boolean importante) throws PlanNotFoundException;
+
+    int numResidentes(long id)throws PlanNotFoundException;
 }
 

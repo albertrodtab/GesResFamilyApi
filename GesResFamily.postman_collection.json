@@ -116,6 +116,27 @@
 					"response": []
 				},
 				{
+					"name": "SQLconsultTotalResidentesCentro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/centro/1/numResidentes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"centro",
+								"1",
+								"numResidentes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deleteCentro",
 					"request": {
 						"method": "DELETE",
@@ -557,6 +578,27 @@
 					"response": []
 				},
 				{
+					"name": "SQLconsultTotalResidentesPlan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/plan/1/numResidentes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"plan",
+								"1",
+								"numResidentes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deletePlan",
 					"request": {
 						"method": "DELETE",
@@ -973,6 +1015,26 @@
 									"key": "residente",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SQLconsultResidentesSaldo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/saldo/200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"saldo",
+								"200"
 							]
 						}
 					},

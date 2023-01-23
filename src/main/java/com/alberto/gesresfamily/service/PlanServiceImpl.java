@@ -113,4 +113,11 @@ public class PlanServiceImpl implements PlanService{
         return planRepository.save(plan);
     }
 
+    @Override
+    public int numResidentes(long id) throws PlanNotFoundException {
+        Plan plan = planRepository.findById(id)
+                .orElseThrow(PlanNotFoundException::new);
+        return planRepository.numResidentes(id);
+    }
+
 }
