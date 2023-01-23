@@ -90,6 +90,15 @@ public class CentroController {
         return centro;
     }
 
+    // Contar los residentes totales de un centro. SQL
+    @GetMapping("/centro/{id}/numResidentes")
+    public int numResidentes(@PathVariable long id) throws CentroNotFoundException {
+        logger.info("Inicio numResidentes " + id);
+        int residentes = centroService.numResidentes(id);
+        logger.info("rin numResidentes " + id);
+        return residentes;
+    }
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

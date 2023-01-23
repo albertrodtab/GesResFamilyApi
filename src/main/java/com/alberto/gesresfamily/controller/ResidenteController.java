@@ -91,6 +91,16 @@ public class ResidenteController {
         return residente;
     }
 
+    // Consultar los residentes con una saldo inferior a una cifra determinada. SQL
+    @GetMapping("/residente/{saldo}")
+    public List<Residente> saldoMenor (@PathVariable float saldo) {
+        logger.info("Inicio saldoMenor " + saldo);
+        List<Residente> residentes = null;
+        residentes = residenteService.saldoMenor(saldo);
+        logger.info("Fin SaldoMenor " + saldo);
+        return residentes;
+    }
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

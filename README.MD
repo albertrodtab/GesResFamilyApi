@@ -34,6 +34,7 @@ requieran el uso de DTOs y/o utilizar las relaciones entre las clases
 
 * Añade 3 operaciones que utilicen consultas JPQL para extraer la información de la base de datos
 
+##### *IMPLEMENTADO*
 * Añade 3 operaciones que utilicen consultas SQL nativas para extraer la información de la base de datos
 
 * Añade 2 clases más al modelo de datos con sus respectivas operaciones CRUD (inclúyelas también en la colección Postman)

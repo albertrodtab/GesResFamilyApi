@@ -108,6 +108,15 @@ public class PlanController {
         return plan;
     }
 
+    // Contar los residentes totales de un plan. SQL
+    @GetMapping("/plan/{id}/numResidentes")
+    public int numResidentesPlan(@PathVariable long id) throws PlanNotFoundException{
+        logger.info("Inicio numResidentesPlan " + id);
+        int residentes = planService.numResidentes(id);
+        logger.info("rin numResidentesPlan " + id);
+        return residentes;
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException manve) {

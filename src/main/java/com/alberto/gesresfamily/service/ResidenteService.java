@@ -26,4 +26,6 @@ public interface ResidenteService {
     List<Residente> findAllResidentes(long id, String nombre, String dni);
 
     Residente patchProfesional(long id, float saldo) throws ResidenteNotFoundException;
+
+    List<Residente> saldoMenor(float saldo);
 }
