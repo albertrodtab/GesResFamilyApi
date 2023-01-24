@@ -138,7 +138,7 @@ public class PlanController {
 
 
     @ExceptionHandler(PlanNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlePlanNotFoundException(ProfesionalNotFoundException plnfe) {
+    public ResponseEntity<ErrorResponse> handlePlanNotFoundException(PlanNotFoundException plnfe) {
         logger.info("404: Plan not found");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.resourceNotFound(plnfe.getMessage()));
     }

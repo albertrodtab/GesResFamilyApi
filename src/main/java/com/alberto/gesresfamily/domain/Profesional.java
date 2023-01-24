@@ -44,4 +44,7 @@ public class Profesional {
     @OneToMany(mappedBy = "profesional")
     private List<Plan> planes;
 
+    @OneToMany(mappedBy = "profesional")
+    private List<Comunicado> comunicados;
+
 }
