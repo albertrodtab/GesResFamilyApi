@@ -2,6 +2,7 @@ package com.alberto.gesresfamily.service;
 
 import com.alberto.gesresfamily.domain.Profesional;
 import com.alberto.gesresfamily.exception.ProfesionalNotFoundException;
+import com.alberto.gesresfamily.repository.PlanRepository;
 import com.alberto.gesresfamily.repository.ProfesionalRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ public class ProfesionalServiceImpl implements ProfesionalService{
 
     @Autowired
     private ProfesionalRepository profesionalRepository;
+    @Autowired
+    private PlanRepository planRepository;
 
     @Override
     public Profesional addProfesional(Profesional profesional) {
@@ -44,6 +47,7 @@ public class ProfesionalServiceImpl implements ProfesionalService{
     public Profesional removeProfesional(long id) throws ProfesionalNotFoundException {
         Profesional profesional = profesionalRepository.findById(id).
                 orElseThrow(ProfesionalNotFoundException::new);
+        profesional.getPlanes().forEach(planes-> planRepository.delete(planes));
         profesionalRepository.delete(profesional);
         return profesional;
     }

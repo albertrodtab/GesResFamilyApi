@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Centro de Día Vigo\",\r\n    \"direccion\": \"Garcia Barbon, Nº 60, Vigo\",\r\n    \"numRegistro\": \"G123456\",\r\n    \"email\": \"cnetrodia.vigo@alberto.com\",\r\n    \"telefono\": \"800623180\"\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Centro de Día Vigo\",\r\n    \"direccion\": \"Garcia Barbon, Nº 60, Vigo\",\r\n    \"numRegistro\": \"G124567\",\r\n    \"email\": \"centrodia.vigo@alberto.com\",\r\n    \"telefono\": \"800623180\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +82,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/centros?all=false&nombre=alberto",
+							"raw": "http://localhost:8080/centros?all=true",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -94,11 +94,12 @@
 							"query": [
 								{
 									"key": "all",
-									"value": "false"
+									"value": "true"
 								},
 								{
 									"key": "nombre",
-									"value": "alberto"
+									"value": "alberto",
+									"disabled": true
 								},
 								{
 									"key": "numRegistro",
@@ -422,7 +423,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombrePlan\": \"GeroBasket\",\r\n    \"terapia\": \"Juegos Lúdicos\",\r\n    \"fechaInicio\": \"01-12-2021\",\r\n    \"fechaFin\": null,\r\n    \"importante\": true,\r\n    \"descripcion\": \"Baloncesto adaptado\",\r\n    \"profesional\": 1 \r\n}",
+							"raw": "{\r\n    \"nombrePlan\": \"GeroBasket\",\r\n    \"terapia\": \"Juegos Lúdicos\",\r\n    \"fechaInicio\": \"01-12-2021\",\r\n    \"fechaFin\": null,\r\n    \"importante\": true,\r\n    \"descripcion\": \"Baloncesto adaptado\",\r\n    \"profesional\": 4 \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -715,7 +716,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/profesionales/1",
+							"raw": "http://localhost:8080/profesionales/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -723,7 +724,7 @@
 							"port": "8080",
 							"path": [
 								"profesionales",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -775,7 +776,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/profesionales?profesional=1",
+							"raw": "http://localhost:8080/profesionales",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -787,7 +788,8 @@
 							"query": [
 								{
 									"key": "profesional",
-									"value": "1"
+									"value": "1",
+									"disabled": true
 								}
 							]
 						}
@@ -800,7 +802,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/profesionales/1",
+							"raw": "http://localhost:8080/profesionales/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -808,7 +810,7 @@
 							"port": "8080",
 							"path": [
 								"profesionales",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -1026,14 +1028,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/saldo/200",
+							"raw": "http://localhost:8080/residente/200",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"saldo",
+								"residente",
 								"200"
 							]
 						}
@@ -1119,6 +1121,339 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Comunicados",
+			"item": [
+				{
+					"name": "addComunicado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreComunicado\": \"Comunicado Salidas Navidad\",\r\n    \"fechaEnvio\": \"23-12-2021\",\r\n    \"descripcion\": \"Prueba de comunicado\",\r\n    \"profesional\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comunicados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultComunicados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comunicados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultComunicadosById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comunicados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicados"
+							],
+							"query": [
+								{
+									"key": "comunicado",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComunicado",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comunicados/34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicados",
+								"34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComunicado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombreComunicado\": \"Comunicado Situación Covid\",\r\n    \"fechaEnvio\": \"21-12-2021\",\r\n    \"descripcion\": \"Os informamos que el cribado por PCR realizado en el centro ha arrojado un resultado negativo en todas las pruebas realizadas.\",\r\n    \"profesional\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comunicados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarDescripcionComunicado",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Os informamos que el cribado por PCR realizado en el centro ha arrojado un resultado negativo en todas las pruebas realizadas. Nuevo cribado en 5 días.",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comunicado/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comunicado",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seguimientos",
+			"item": [
+				{
+					"name": "addSeguimiento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoSeguimiento\": \"Comunicación con familia\",\r\n    \"fechaSeguimiento\": \"23-12-2021\",\r\n    \"descripcion\": \"Se habla con la familia para informar de la caida producida en el día de ayer.\",\r\n    \"residente\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seguimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultSeguimientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/seguimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultSeguimientosById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/seguimientos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimientos"
+							],
+							"query": [
+								{
+									"key": "comunicado",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSeguimientos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/seguimientos/34",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimientos",
+								"34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSeguimiento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"tipoSeguimiento\": \"Intervencion Médica\",\r\n    \"fechaSeguimiento\": \"21-12-2021\",\r\n    \"descripcion\": \"Se valora al residente tras caida en la mañana de ayer, no alteraciones relevantes, estado basal como previamente, vigilancia de aparición de signos tardios tras caída como moratones y dolor, si molestias anotar para volver a revisar.\",\r\n    \"residente\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seguimientos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarDescripcionSeguimiento",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "Prueba cambio de descripción de un seguimiento.",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/seguimiento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"seguimiento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultComunicadosByProfesional",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/profesional/1/comunicados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesional",
+						"1",
+						"comunicados"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
