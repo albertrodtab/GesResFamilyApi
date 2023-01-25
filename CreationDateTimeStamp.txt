@@ -1,0 +1,40 @@
+Para que los campos de fecha de las entidades marcadas con la anotación @CreationTimesStamp se autorrellenen, debe incluir la siguiente anotación en su archivo application.properties:
+
+spring.jpa.properties.javax.persistence.auditing.dateTimeProvider = org.springframework.data.jpa.domain.support.AuditingDateTimeProvider
+
+Para habilitar la auditoría en su archivo application.properties, debe agregar la siguiente línea:
+
+spring.jpa.properties.javax.persistence.auditing.enabled=true
+
+De esta manera, habilitará la auditoría de JPA en su aplicación. 
+
+También debe habilitar la auditoría de JPA en su configuración de Spring agregando la siguiente anotación en su clase de configuración principal:
+
+@EnableJpaAuditing
+
+La clase principal es la clase que contiene la anotación @SpringBootApplication, es donde se define las configuraciones de tu aplicación.
+
+Además, puede especificar el formato de fecha que desea utilizar agregando la siguiente línea en application.properties
+
+spring.jpa.properties.hibernate.jdbc.time_zone=UTC
+
+Es importante tener en cuenta que si estás usando Hibernate debes especificar la zona horaria para evitar problemas de conversión de fecha/hora.
+
+
+
+En resumen, para habilitar la auditoría en su archivo application.properties debe agregar estas dos líneas
+
+spring.jpa.properties.javax.persistence.auditing.enabled=true
+spring.jpa.properties.javax.persistence.auditing.dateTimeProvider = org.springframework.data.jpa.domain.support.AuditingDateTimeProvider
+
+y en tu clase de configuración agregar esta anotación
+
+@EnableJpaAuditing
+
+y opcionalmente si estas usando Hibernate
+
+spring.jpa.properties.hibernate.jdbc.time_zone=UTC
+
+En postman al tener esto configurado es necesario enviar el campo de fecha en los body, ya que los genera el automaticamente.(pasa como con los id)
+
+

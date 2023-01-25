@@ -1,12 +1,8 @@
 package com.alberto.gesresfamily.service;
 
-import com.alberto.gesresfamily.domain.Comunicado;
-import com.alberto.gesresfamily.domain.Profesional;
 import com.alberto.gesresfamily.domain.Residente;
 import com.alberto.gesresfamily.domain.Seguimiento;
 import com.alberto.gesresfamily.domain.dto.SeguimientoDto;
-import com.alberto.gesresfamily.exception.ComunicadoNotFoundException;
-import com.alberto.gesresfamily.exception.ProfesionalNotFoundException;
 import com.alberto.gesresfamily.exception.ResidenteNotFoundException;
 import com.alberto.gesresfamily.exception.SeguimientoNotFoundException;
 import com.alberto.gesresfamily.repository.ResidenteRepository;
